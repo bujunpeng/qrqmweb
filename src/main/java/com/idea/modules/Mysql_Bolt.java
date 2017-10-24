@@ -1,30 +1,38 @@
 package com.idea.modules;
 
+import com.idea.config.MysqlConfig;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichBolt;
 import org.apache.storm.tuple.Tuple;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by poul on 2017/10/23.
  */
 public class Mysql_Bolt extends BaseRichBolt {
 
-
+    private Properties prop;
     private OutputCollector collector;
     private Connection conn;
     private PreparedStatement pstm;
     private String sql = "INSERT INTO strom_qrqmweb VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     int i = 0;
 
-
+    public Mysql_Bolt() throws IOException {
+        prop = new Properties();
+        prop.load(new FileInputStream("/consumer.properties"));
+    }
     @Override
     public void declareOutputFields(OutputFieldsDeclarer arg0) {}
 
@@ -73,7 +81,8 @@ public class Mysql_Bolt extends BaseRichBolt {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://10.37.9.133:3306/bigdata_logs", "e_logs", "e_logs");
+                    "jdbc:mysql://"+ prop.getProperty(MysqlConfig.IP_PORT)+"/"+prop.getProperty(MysqlConfig.DATABASE),
+                    prop.getProperty(MysqlConfig.USERNAME), prop.getProperty(MysqlConfig.PASSWORD));
             pstm = conn.prepareStatement(sql);
             conn.setAutoCommit(false);
         } catch (ClassNotFoundException e) {
