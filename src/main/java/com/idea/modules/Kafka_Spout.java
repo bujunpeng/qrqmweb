@@ -17,11 +17,11 @@ import java.util.Properties;
 /**
  * Created by poul on 2017/10/23.
  */
-public class qrqmweb_Spout extends BaseRichSpout {
+public class Kafka_Spout extends BaseRichSpout {
     private KafkaConsumer kc ;
     private SpoutOutputCollector spoutOutputCollector ;
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declareStream("Line",new Fields("line"));
+        declarer.declare(new Fields("line"));
     }
 
     public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
@@ -33,7 +33,7 @@ public class qrqmweb_Spout extends BaseRichSpout {
     public void nextTuple() {
         ConsumerRecords<String,String> records = kc.poll(1000);
         for(ConsumerRecord record : records){
-            spoutOutputCollector.emit("Line",new Values(record.value()+""),System.currentTimeMillis());
+            spoutOutputCollector.emit(new Values(record.value()+""),System.currentTimeMillis());
         }
     }
 
@@ -41,7 +41,8 @@ public class qrqmweb_Spout extends BaseRichSpout {
         if(kc == null) {
             Properties props = new Properties();
             props.put("bootstrap.servers", "10.0.180.33:9092,10.0.180.34:9092,10.0.180.45:9092");
-            props.put("group.id", "group-qrqmweb");
+            props.put("group.id", "group-fortest5");
+            props.put("auto.offset.reset","earliest");
             props.put("enable.auto.commit", "true");
             props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
             props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");

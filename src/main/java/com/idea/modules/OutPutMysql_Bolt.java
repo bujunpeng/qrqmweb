@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * Created by poul on 2017/10/23.
  */
-public class Mysql_Bolt extends BaseRichBolt {
+public class OutPutMysql_Bolt extends BaseRichBolt {
 
 
     private OutputCollector collector;

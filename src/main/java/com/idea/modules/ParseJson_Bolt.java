@@ -44,14 +44,14 @@ public class ParseJson_Bolt extends BaseBasicBolt{
     public void execute(Tuple input, BasicOutputCollector collector) {
         String line = input.getStringByField("line");
         parseJson(line);
-        collector.emit("Fileds",new Values(code,requestTime,responseTime,locationType,phone,prvcID,channel,
+        collector.emit(new Values(code,requestTime,responseTime,locationType,phone,prvcID,channel,
                 vice_card_code,vice_card_url,g3Tg4_code,g3Tg4_url,big_business_code,big_business_url,
                 roaming_code,roaming_url,stock_code,stock_url,music_code,music_url,home_code,
                 home_url,video_card_code,video_card_url));
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declareStream("Fileds",new Fields("code","requestTime","responseTime","locationType","phone","prvcID","channel",
+        declarer.declare(new Fields("code","requestTime","responseTime","locationType","phone","prvcID","channel",
                 "vice_card_code","vice_card_url","g3Tg4_code","g3Tg4_url","big_business_code","big_business_url",
                 "roaming_code","roaming_url","stock_code","stock_url","music_code","music_url","home_code",
                 "home_url","video_card_code","video_card_url"));
