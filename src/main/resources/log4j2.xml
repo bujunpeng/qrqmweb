@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Don't forget to set system property
+-DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+     to make all loggers asynchronous.
+
+Requires disruptor-3.0.0.jar or higher on the classpath.
+Future versions of Log4j 2 will require disruptor-3.3.3.jar or higher
+-->
+<configuration monitorInterval="30">
+    <Properties>
+        <Property name="base">D:/codehouse/qrqmweb/src/main/assembly/logs</Property>
+        <Property name="baseDir"></Property>
+        <Property name="outPutDir">${base}/output</Property>
+    </Properties>
+
+    <Appenders>
+        <RollingRandomAccessFile name="OutPut_Bolt" fileName="${outPutDir}/qrqmweb.log"
+                     filePattern="${outPutDir}/qrqmweb_%d{yyyyMMdd_HH}-%i.log.gz">
+            <PatternLayout pattern="%msg%n" />
+            <Policies>
+                <!--
+                关键点在于 filePattern后的日期格式，以及TimeBasedTriggeringPolicy的interval，
+                日期格式精确到哪一位， interval也精确到哪一个单位
+                -->
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+                <SizeBasedTriggeringPolicy size="5 GB" />
+            </Policies>
+            <DefaultRolloverStrategy max="200"/>
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingRandomAccessFile>
+
+        <RollingRandomAccessFile name="errFile" fileName="${base}/err.log" filePattern="${base}/logs/err%d{yyyyMMdd}-%i.log.gz">
+            <PatternLayout  pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %t %C %M %L %m%n" />
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <logger name="com.idea.modules.OutPutFile_Bolt" level="info" additivity="false">
+            <appender-ref ref="OutPut_Bolt"/>
+    </logger>
+
+        <Root level="WARM">
+            <appender-ref ref="errFile" />
+        </Root>
+    </Loggers>
+</configuration>
