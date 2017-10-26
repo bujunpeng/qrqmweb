@@ -1,9 +1,8 @@
 package com.idea.main;
 
-import com.idea.modules.ParseJson_Bolt;
 import com.idea.modules.Kafka_Spout;
+import com.idea.modules.ParseJson_Bolt;
 import org.apache.storm.Config;
-import org.apache.storm.LocalCluster;
 import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
@@ -28,35 +27,25 @@ public class qrqmweb_ToPo {
         RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter(" : ");
         SyncPolicy syncPolicy = new CountSyncPolicy(10);
         FileRotationPolicy rotationPolicy = new TimedRotationPolicy(1.0f, TimedRotationPolicy.TimeUnit.MINUTES);
-        FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath("/storm/").withPrefix("app_").withExtension(".log");
+        FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath("/user/dianqu/private/ods/test4/").withPrefix("app_").withExtension(".log");
 
         HdfsBolt hdfs_Bolt = new HdfsBolt()
-                .withFsUrl("hdfs://192.168.1.68:9000")
+                .withFsUrl("hdfs://ns1")
                 .withFileNameFormat(fileNameFormat)
                 .withRecordFormat(format)
                 .withRotationPolicy(rotationPolicy)
                 .withSyncPolicy(syncPolicy);
 
-
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("Kafka_Spout", new Kafka_Spout());
-        builder.setBolt("paseJson_Bolt",new ParseJson_Bolt(),3).shuffleGrouping("Kafka_Spout", "Line");
-        builder.setBolt("hdfs_Bolt", hdfs_Bolt).shuffleGrouping("paseJson_Bolt", "Fileds");
+        builder.setBolt("paseJson_Bolt", new ParseJson_Bolt(), 3).shuffleGrouping("Kafka_Spout");
+        builder.setBolt("hdfs_Bolt", hdfs_Bolt).shuffleGrouping("paseJson_Bolt");
 
         Config conf = new Config();
-
+        conf.setNumWorkers(1);
         String name = qrqmweb_ToPo.class.getSimpleName();
-        if (args != null && args.length > 0) {
-            conf.put(Config.NIMBUS_HOST, args[0]);
-            conf.setNumWorkers(3);
-            StormSubmitter.submitTopologyWithProgressBar(name, conf, builder.createTopology());
-        } else {
-            conf.setMaxTaskParallelism(3);
-            LocalCluster cluster = new LocalCluster();
-            cluster.submitTopology(name, conf, builder.createTopology());
-//             Thread.sleep(60000);
-//             cluster.shutdown();
-        }
+        StormSubmitter.submitTopologyWithProgressBar(name, conf, builder.createTopology());
+
     }
 
 }
