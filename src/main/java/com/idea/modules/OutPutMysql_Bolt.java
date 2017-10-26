@@ -29,12 +29,15 @@ public class OutPutMysql_Bolt extends BaseRichBolt {
     private String sql = "INSERT INTO strom_qrqmweb VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     int i = 0;
 
-    public Mysql_Bolt() throws IOException {
+    public OutPutMysql_Bolt() throws IOException {
         prop = new Properties();
         prop.load(new FileInputStream("/consumer.properties"));
+
     }
+
     @Override
-    public void declareOutputFields(OutputFieldsDeclarer arg0) {}
+    public void declareOutputFields(OutputFieldsDeclarer arg0) {
+    }
 
 
     @Override
@@ -81,7 +84,7 @@ public class OutPutMysql_Bolt extends BaseRichBolt {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://"+ prop.getProperty(MysqlConfig.IP_PORT)+"/"+prop.getProperty(MysqlConfig.DATABASE),
+                    "jdbc:mysql://" + prop.getProperty(MysqlConfig.IP_PORT) + "/" + prop.getProperty(MysqlConfig.DATABASE),
                     prop.getProperty(MysqlConfig.USERNAME), prop.getProperty(MysqlConfig.PASSWORD));
             pstm = conn.prepareStatement(sql);
             conn.setAutoCommit(false);
