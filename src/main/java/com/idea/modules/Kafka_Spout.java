@@ -33,7 +33,7 @@ public class Kafka_Spout extends BaseRichSpout {
     public void nextTuple() {
         ConsumerRecords<String,String> records = kc.poll(1000);
         for(ConsumerRecord record : records){
-            spoutOutputCollector.emit(new Values(record.value()+""),System.currentTimeMillis());
+            spoutOutputCollector.emit(new Values(record.value()+""));
         }
     }
 

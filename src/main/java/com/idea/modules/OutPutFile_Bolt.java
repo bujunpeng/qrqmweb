@@ -39,6 +39,7 @@ public class OutPutFile_Bolt extends BaseBasicBolt {
                 input.getStringByField("video_card_code"),
                 input.getStringByField("video_card_url")
         );
+//        String result = input.getStringByField("line");
         logger.info(result);
 
     }

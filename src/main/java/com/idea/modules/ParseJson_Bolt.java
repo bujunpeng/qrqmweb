@@ -72,8 +72,8 @@ public class ParseJson_Bolt extends BaseBasicBolt{
             code = responseBody.get("code").getAsString();
             if("0".equals(code)){
                 JsonObject dataObject = responseBody.get("dataObject").getAsJsonObject();
-                JsonArray webIndexData = dataObject.get("webIndexData").getAsJsonArray();
-                Iterator iter = webIndexData.iterator();
+                JsonArray myGoData = dataObject.get("myGoData").getAsJsonArray();
+                Iterator iter = myGoData.iterator();
                 while(iter.hasNext()) {
                     JsonElement element = (JsonElement)iter.next();
                     JsonObject obj = element.getAsJsonObject();
@@ -99,6 +99,6 @@ public class ParseJson_Bolt extends BaseBasicBolt{
                 }
 
             }
-        }catch(Exception e){}
+        }catch(Exception e){e.printStackTrace();}
     }
 }
