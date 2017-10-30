@@ -1,6 +1,6 @@
 package com.idea.main;
 
-import com.idea.modules.Kafka_Spout;
+import com.idea.modules.MyKafka_Spout;
 import com.idea.modules.OutPutFile_Bolt;
 import com.idea.modules.ParseJson_Bolt;
 import org.apache.storm.Config;
@@ -8,18 +8,7 @@ import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
-import org.apache.storm.hdfs.bolt.HdfsBolt;
-import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
-import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
-import org.apache.storm.hdfs.bolt.format.FileNameFormat;
-import org.apache.storm.hdfs.bolt.format.RecordFormat;
-import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
-import org.apache.storm.hdfs.bolt.rotation.TimedRotationPolicy;
-import org.apache.storm.hdfs.bolt.sync.CountSyncPolicy;
-import org.apache.storm.hdfs.bolt.sync.SyncPolicy;
 import org.apache.storm.topology.TopologyBuilder;
-
-import java.util.ArrayList;
 
 
 /**
@@ -40,8 +29,8 @@ public class qrqmweb_ToPo {
                 .withSyncPolicy(syncPolicy);*/
 
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("Kafka_Spout", new Kafka_Spout());
-        builder.setBolt("PaseJson_Bolt", new ParseJson_Bolt(), 3).shuffleGrouping("Kafka_Spout");
+        builder.setSpout("MyKafka_Spout", new MyKafka_Spout());
+        builder.setBolt("PaseJson_Bolt", new ParseJson_Bolt(), 3).shuffleGrouping("MyKafka_Spout");
         builder.setBolt("OutPutFile_Bolt",new OutPutFile_Bolt()).shuffleGrouping("PaseJson_Bolt");
 //        builder.setBolt("hdfs_Bolt", hdfs_Bolt).shuffleGrouping("PaseJson_Bolt");
 

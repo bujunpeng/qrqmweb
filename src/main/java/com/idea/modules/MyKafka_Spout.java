@@ -17,7 +17,7 @@ import java.util.Properties;
 /**
  * Created by poul on 2017/10/23.
  */
-public class Kafka_Spout extends BaseRichSpout {
+public class MyKafka_Spout extends BaseRichSpout {
     private KafkaConsumer kc ;
     private SpoutOutputCollector spoutOutputCollector ;
     public void declareOutputFields(OutputFieldsDeclarer declarer) {

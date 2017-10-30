@@ -1,11 +1,9 @@
 package com.idea.main;
 
+import com.idea.modules.MyKafka_Spout;
 import com.idea.modules.OutPutFile_Bolt;
-import com.idea.modules.ParseJson_Bolt;
-import com.idea.modules.Kafka_Spout;
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
-import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
@@ -17,8 +15,8 @@ import org.apache.storm.topology.TopologyBuilder;
 public class qrqmweb_ToPoLocal {
     public static void main(String[] args) throws InvalidTopologyException, AuthorizationException, AlreadyAliveException {
         TopologyBuilder builder = new TopologyBuilder();
-        builder.setSpout("Kafka_Spout",new Kafka_Spout());
-//        builder.setBolt("PaseJson_Bolt",new ParseJson_Bolt(),3).shuffleGrouping("Kafka_Spout");
+        builder.setSpout("MyKafka_Spout",new MyKafka_Spout());
+//        builder.setBolt("PaseJson_Bolt",new ParseJson_Bolt(),3).shuffleGrouping("MyKafka_Spout");
         builder.setBolt("OutPutFile_Bolt",new OutPutFile_Bolt()).shuffleGrouping("PaseJson_Bolt");
 //        builder.setBolt("OutPutMysql_Bolt",new OutPutMysql_Bolt()).shuffleGrouping("PaseJson_Bolt");
 
