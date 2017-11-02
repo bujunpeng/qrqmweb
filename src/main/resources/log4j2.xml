@@ -8,7 +8,8 @@ Future versions of Log4j 2 will require disruptor-3.3.3.jar or higher
 -->
 <configuration monitorInterval="30">
     <Properties>
-        <Property name="base">D:/codehouse/qrqmweb/src/main/assembly/logs</Property>
+        <Property name="base">/home/dianqu/qrqmweb/logs</Property>
+        <!--<Property name="base">E:/logs</Property>-->
         <Property name="baseDir"></Property>
         <Property name="outPutDir">${base}/output</Property>
     </Properties>
@@ -23,7 +24,7 @@ Future versions of Log4j 2 will require disruptor-3.3.3.jar or higher
                 日期格式精确到哪一位， interval也精确到哪一个单位
                 -->
                 <TimeBasedTriggeringPolicy modulate="true" interval="1"/>
-                <SizeBasedTriggeringPolicy size="5 GB" />
+                <SizeBasedTriggeringPolicy size="1 GB" />
             </Policies>
             <DefaultRolloverStrategy max="200"/>
             <Filters>

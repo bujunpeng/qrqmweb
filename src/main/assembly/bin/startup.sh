@@ -101,8 +101,8 @@ JAVA_OPTS="$JAVA_OPTS -DLog4jContextSelector=org.apache.logging.log4j.core.async
 
 #==============================================================================
 
-#set libjar
-libjar="/root/apache-storm-1.0.4/lib/asm-5.0.3.jar:/root/apache-storm-1.0.4/lib/reflectasm-1.10.1.jar:/root/apache-storm-1.0.4/lib/log4j-api-2.8.jar:/root/apache-storm-1.0.4/lib/minlog-1.3.0.jar:/root/apache-storm-1.0.4/lib/servlet-api-2.5.jar:/root/apache-storm-1.0.4/lib/slf4j-api-1.7.21.jar:/root/apache-storm-1.0.4/lib/log4j-over-slf4j-1.6.6.jar:/root/apache-storm-1.0.4/lib/kryo-3.0.3.jar:/root/apache-storm-1.0.4/lib/log4j-core-2.8.jar:/root/apache-storm-1.0.4/lib/objenesis-2.1.jar:/root/apache-storm-1.0.4/lib/disruptor-3.3.2.jar:/root/apache-storm-1.0.4/lib/storm-rename-hack-1.0.4.jar:/root/apache-storm-1.0.4/lib/storm-core-1.0.4.jar:/root/apache-storm-1.0.4/lib/clojure-1.7.0.jar:/root/apache-storm-1.0.4/lib/log4j-slf4j-impl-2.8.jar:/home/dianqu/qrqmweb/lib/gson-2.8.0.jar:/home/dianqu/qrqmweb/lib/qrqmweb-1.0-SNAPSHOT.jar:/root/apache-storm-1.0.4/conf:/root/apache-storm-1.0.4/bin:/home/dianqu/qrqmweb/lib/storm-hdfs-1.0.4.jar:/home/dianqu/qrqmweb/lib/hadoop-hdfs-2.6.1.jar:/home/dianqu/qrqmweb/lib/hadoop-common-2.6.1.jar:/root/kafka_2.10-0.9.0.0/libs/kafka-clients-0.9.0.0.jar:/home/dianqu/qrqmweb/lib/guava-11.0.2.jar:/home/dianqu/qrqmweb/conf/log4j2.xml"
+#set libjar 集群环境
+#libjar="/root/apache-storm-1.0.4/lib/asm-5.0.3.jar:/root/apache-storm-1.0.4/lib/reflectasm-1.10.1.jar:/root/apache-storm-1.0.4/lib/log4j-api-2.8.jar:/root/apache-storm-1.0.4/lib/minlog-1.3.0.jar:/root/apache-storm-1.0.4/lib/servlet-api-2.5.jar:/root/apache-storm-1.0.4/lib/slf4j-api-1.7.21.jar:/root/apache-storm-1.0.4/lib/log4j-over-slf4j-1.6.6.jar:/root/apache-storm-1.0.4/lib/kryo-3.0.3.jar:/root/apache-storm-1.0.4/lib/log4j-core-2.8.jar:/root/apache-storm-1.0.4/lib/objenesis-2.1.jar:/root/apache-storm-1.0.4/lib/disruptor-3.3.2.jar:/root/apache-storm-1.0.4/lib/storm-rename-hack-1.0.4.jar:/root/apache-storm-1.0.4/lib/storm-core-1.0.4.jar:/root/apache-storm-1.0.4/lib/clojure-1.7.0.jar:/root/apache-storm-1.0.4/lib/log4j-slf4j-impl-2.8.jar:/home/dianqu/qrqmweb/lib/gson-2.8.0.jar:/home/dianqu/qrqmweb/lib/qrqmweb-1.0-SNAPSHOT.jar:/root/apache-storm-1.0.4/conf:/root/apache-storm-1.0.4/bin:/home/dianqu/qrqmweb/lib/storm-hdfs-1.0.4.jar:/home/dianqu/qrqmweb/lib/hadoop-hdfs-2.6.1.jar:/home/dianqu/qrqmweb/lib/hadoop-common-2.6.1.jar:/root/kafka_2.10-0.9.0.0/libs/kafka-clients-0.9.0.0.jar:/home/dianqu/qrqmweb/lib/guava-11.0.2.jar:/home/dianqu/qrqmweb/conf/log4j2.xml"
 
 #set HOME
 CURR_DIR=`pwd`
@@ -118,19 +118,31 @@ fi
 #==============================================================================
 
 #set CLASSPATH
-qrqmweb_CLASSPATH="$qrqmweb_HOME/conf:$qrqmweb_HOME/lib:$CLASSPATH"
+qrqmweb_CLASSPATH="$qrqmweb_HOME/conf:$qrqmweb_HOME/lib/*"
 #==============================================================================
 
-#startup Server
-RUN_CMD="$JAVA_HOME/bin/java -client"
-#RUN_CMD="$RUN_CMD -Ddaemon.name= -Dstorm.options="
-RUN_CMD="$RUN_CMD -Dstorm.home=/root/apache-storm-1.0.4 -Dstorm.log.dir=/root/apache-storm-1.0.4/logs"
-#RUN_CMD="$RUN_CMD -Dqrqmweb_HOME=$qrqmweb_HOME"
-RUN_CMD="$RUN_CMD -Djava.library.path=/usr/local/lib:/opt/local/lib:/usr/lib"
-RUN_CMD="$RUN_CMD -classpath $libjar"
-#RUN_CMD="$RUN_CMD $JAVA_OPTS"
-RUN_CMD="$RUN_CMD -Dstorm.jar=/home/dianqu/qrqmweb/lib/qrqmweb-1.0-SNAPSHOT.jar com.idea.main.qrqmweb_ToPoTest"
-#RUN_CMD="$RUN_CMD >> \"$qrqmweb_HOME/logs/console.log\" 2>&1 &"
+##startup Server 集群环境
+#RUN_CMD="$JAVA_HOME/bin/java -client"
+##RUN_CMD="$RUN_CMD -Ddaemon.name= -Dstorm.options="
+#RUN_CMD="$RUN_CMD -Dstorm.home=/root/apache-storm-1.0.4 -Dstorm.log.dir=/root/apache-storm-1.0.4/logs"
+##RUN_CMD="$RUN_CMD -Dqrqmweb_HOME=$qrqmweb_HOME"
+#RUN_CMD="$RUN_CMD -Djava.library.path=/usr/local/lib:/opt/local/lib:/usr/lib"
+#RUN_CMD="$RUN_CMD -classpath $libjar"
+##RUN_CMD="$RUN_CMD $JAVA_OPTS"
+#RUN_CMD="$RUN_CMD -Dstorm.jar=/home/dianqu/qrqmweb/lib/qrqmweb-1.0-SNAPSHOT.jar com.idea.main.qrqmweb_ToPoTest"
+##RUN_CMD="$RUN_CMD >> \"$qrqmweb_HOME/logs/console.log\" 2>&1 &"
+#echo $RUN_CMD
+#eval $RUN_CMD
+#==============================================================================
+
+#startup Server 单机环境
+RUN_CMD="$JAVA_HOME/bin/java"
+RUN_CMD="$RUN_CMD -DappName=qrqmweb_Test -Dqrqmweb_HOME=$qrqmweb_HOME"
+RUN_CMD="$RUN_CMD -classpath $qrqmweb_CLASSPATH"
+RUN_CMD="$RUN_CMD $JAVA_OPTS"
+RUN_CMD="$RUN_CMD com.idea.main.qrqmweb_ToPoTest $@"
+RUN_CMD="$RUN_CMD >> $qrqmweb_HOME/logs/console.log 2>&1 &"
 echo $RUN_CMD
 eval $RUN_CMD
+echo $! > $qrqmweb_HOME/bin/qrqmweb_Test.pid
 #==============================================================================

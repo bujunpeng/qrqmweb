@@ -1,5 +1,5 @@
 package com.idea.modules;
-
+/**
 import com.google.common.base.Joiner;
 import org.apache.storm.topology.BasicOutputCollector;
 import org.apache.storm.topology.OutputFieldsDeclarer;
@@ -8,9 +8,9 @@ import org.apache.storm.tuple.Tuple;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+
  * Created by poul on 2017/10/23.
- */
+
 public class OutPutFile_Bolt extends BaseBasicBolt {
     private static final Logger logger = LoggerFactory.getLogger(OutPutFile_Bolt.class);
     private static final Joiner joiner = Joiner.on("@#$").useForNull("");
@@ -48,3 +48,4 @@ public class OutPutFile_Bolt extends BaseBasicBolt {
 
     }
 }
+ */

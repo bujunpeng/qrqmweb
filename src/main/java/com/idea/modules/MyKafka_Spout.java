@@ -1,5 +1,5 @@
 package com.idea.modules;
-
+/**
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
 
-/**
+
  * Created by poul on 2017/10/23.
- */
+
 public class MyKafka_Spout extends BaseRichSpout {
     private KafkaConsumer kc ;
     private SpoutOutputCollector spoutOutputCollector ;
@@ -51,3 +51,4 @@ public class MyKafka_Spout extends BaseRichSpout {
         return kc;
     }
 }
+*/

@@ -1,5 +1,5 @@
 package com.idea.main;
-
+/**
 import com.idea.modules.MyKafka_Spout;
 import com.idea.modules.OutPutFile_Bolt;
 import org.apache.storm.Config;
@@ -9,9 +9,9 @@ import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
 
-/**
+
  * Created by poul on 2017/10/23.
- */
+
 public class qrqmweb_ToPoLocal {
     public static void main(String[] args) throws InvalidTopologyException, AuthorizationException, AlreadyAliveException {
         TopologyBuilder builder = new TopologyBuilder();
@@ -33,3 +33,4 @@ public class qrqmweb_ToPoLocal {
 
     }
 }
+*/

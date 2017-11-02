@@ -1,5 +1,5 @@
 package com.idea.modules;
-
+/**
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,9 +13,9 @@ import org.apache.storm.tuple.Values;
 
 import java.util.Iterator;
 
-/**
+
  * Created by poul on 2017/10/23.
- */
+
 public class ParseJson_Bolt extends BaseBasicBolt{
     String code = "";
     String requestTime = "";
@@ -102,3 +102,4 @@ public class ParseJson_Bolt extends BaseBasicBolt{
         }catch(Exception e){e.printStackTrace();}
     }
 }
+ */

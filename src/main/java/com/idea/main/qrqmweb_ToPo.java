@@ -1,5 +1,5 @@
 package com.idea.main;
-
+/**
 import com.idea.modules.MyKafka_Spout;
 import com.idea.modules.OutPutFile_Bolt;
 import com.idea.modules.ParseJson_Bolt;
@@ -11,22 +11,22 @@ import org.apache.storm.generated.InvalidTopologyException;
 import org.apache.storm.topology.TopologyBuilder;
 
 
-/**
+
  * Created by poul on 2017/10/24.
- */
+ */ /*
 public class qrqmweb_ToPo {
     public static void main(String[] args) throws InvalidTopologyException, AuthorizationException, AlreadyAliveException {
-       /* RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter(" : ");
+       RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter(" : ");
         SyncPolicy syncPolicy = new CountSyncPolicy(10);
         FileRotationPolicy rotationPolicy = new TimedRotationPolicy(1.0f, TimedRotationPolicy.TimeUnit.MINUTES);
         FileNameFormat fileNameFormat = new DefaultFileNameFormat().withPath("/user/dianqu/private/ods/test4/").withPrefix("app_").withExtension(".log");
 
         HdfsBolt hdfs_Bolt = new HdfsBolt()
-                .withFsUrl("hdfs://ns1")
+                .withFsUrl("hdfs url")
                 .withFileNameFormat(fileNameFormat)
                 .withRecordFormat(format)
                 .withRotationPolicy(rotationPolicy)
-                .withSyncPolicy(syncPolicy);*/
+                .withSyncPolicy(syncPolicy);
 
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("MyKafka_Spout", new MyKafka_Spout());
@@ -45,3 +45,4 @@ public class qrqmweb_ToPo {
     }
 
 }
+*/
