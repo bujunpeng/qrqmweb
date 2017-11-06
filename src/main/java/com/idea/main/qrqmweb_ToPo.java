@@ -1,5 +1,5 @@
 package com.idea.main;
-/**
+
 import com.idea.modules.MyKafka_Spout;
 import com.idea.modules.OutPutFile_Bolt;
 import com.idea.modules.ParseJson_Bolt;
@@ -8,12 +8,21 @@ import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
+import org.apache.storm.hdfs.bolt.HdfsBolt;
+import org.apache.storm.hdfs.bolt.format.DefaultFileNameFormat;
+import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
+import org.apache.storm.hdfs.bolt.format.FileNameFormat;
+import org.apache.storm.hdfs.bolt.format.RecordFormat;
+import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
+import org.apache.storm.hdfs.bolt.rotation.TimedRotationPolicy;
+import org.apache.storm.hdfs.bolt.sync.CountSyncPolicy;
+import org.apache.storm.hdfs.bolt.sync.SyncPolicy;
 import org.apache.storm.topology.TopologyBuilder;
 
 
-
+ /**
  * Created by poul on 2017/10/24.
- */ /*
+ */
 public class qrqmweb_ToPo {
     public static void main(String[] args) throws InvalidTopologyException, AuthorizationException, AlreadyAliveException {
        RecordFormat format = new DelimitedRecordFormat().withFieldDelimiter(" : ");
@@ -45,4 +54,3 @@ public class qrqmweb_ToPo {
     }
 
 }
-*/
