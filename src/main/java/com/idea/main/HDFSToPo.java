@@ -24,14 +24,12 @@ import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Tuple;
 import org.apache.storm.tuple.Values;
 
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-
 
 /**
  * Created by poul on 2017/10/31.
@@ -61,7 +59,7 @@ public class HDFSToPo {
                 .withFieldDelimiter("|");
 
         Yaml yaml = new Yaml();
-        InputStream in = new FileInputStream("D:\\codehouse\\qrqmweb\\src\\main\\resources\\hdfs.yaml");
+        InputStream in = new FileInputStream("/home/dianqu/hdfs.yaml");
         Map<String, Object> yamlConf = (Map<String, Object>) yaml.load(in);
         in.close();
         config.put("hdfs.config", yamlConf);
@@ -79,7 +77,7 @@ public class HDFSToPo {
 
         builder.setSpout(SENTENCE_SPOUT_ID, spout, 1);
         // SentenceSpout --> MyBolt
-        builder.setBolt(BOLT_ID, bolt, 4).shuffleGrouping(SENTENCE_SPOUT_ID);
+        builder.setBolt(BOLT_ID, bolt, 1).shuffleGrouping(SENTENCE_SPOUT_ID);
         String topoName = TOPOLOGY_NAME;
         /*if (args.length == 3) {
             topoName = args[2];
