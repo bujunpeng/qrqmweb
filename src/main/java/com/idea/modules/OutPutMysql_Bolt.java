@@ -1,5 +1,5 @@
 package com.idea.modules;
-/**
+
 import com.idea.config.MysqlConfig;
 import org.apache.storm.task.OutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -17,9 +17,9 @@ import java.sql.SQLException;
 import java.util.Map;
 import java.util.Properties;
 
-
+ /**
  * Created by poul on 2017/10/23.
-
+ */
 public class OutPutMysql_Bolt extends BaseRichBolt {
 
     private Properties prop;
@@ -95,4 +95,3 @@ public class OutPutMysql_Bolt extends BaseRichBolt {
         }
     }
 }
- */

@@ -1,4 +1,4 @@
-/*package com.idea.modules;
+package com.idea.modules;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -16,7 +16,7 @@ import java.util.Properties;
 
 /**
  * Created by poul on 2017/10/23.
-
+ */
 public class Test_Spout extends BaseRichSpout {
     private SpoutOutputCollector spoutOutputCollector ;
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
@@ -38,4 +38,3 @@ public class Test_Spout extends BaseRichSpout {
     }
 
 }
-*/
