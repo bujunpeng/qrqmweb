@@ -8,6 +8,7 @@ import org.apache.storm.hdfs.bolt.format.DelimitedRecordFormat;
 import org.apache.storm.hdfs.bolt.format.FileNameFormat;
 import org.apache.storm.hdfs.bolt.format.RecordFormat;
 import org.apache.storm.hdfs.bolt.rotation.FileRotationPolicy;
+import org.apache.storm.hdfs.bolt.rotation.FileSizeRotationPolicy;
 import org.apache.storm.hdfs.bolt.rotation.TimedRotationPolicy;
 import org.apache.storm.hdfs.bolt.sync.CountSyncPolicy;
 import org.apache.storm.hdfs.bolt.sync.SyncPolicy;
@@ -49,6 +50,7 @@ public class HDFSToPo {
 
         // rotate files when they reach 5MB
         FileRotationPolicy rotationPolicy = new TimedRotationPolicy(1.0f, TimedRotationPolicy.TimeUnit.MINUTES);
+        FileRotationPolicy rotationPolicy1 = new FileSizeRotationPolicy(5.0f, FileSizeRotationPolicy.Units.MB);
 
         FileNameFormat fileNameFormat = new DefaultFileNameFormat()
                 .withPath("/user/dianqu/private/test/stormhdfs1/")
@@ -59,7 +61,7 @@ public class HDFSToPo {
                 .withFieldDelimiter("|");
 
         Yaml yaml = new Yaml();
-        InputStream in = new FileInputStream("/home/dianqu/hdfs.yaml");
+        InputStream in = new FileInputStream(System.getProperty("qrqmweb_HOME")+"/conf/hdfs.yaml");
         Map<String, Object> yamlConf = (Map<String, Object>) yaml.load(in);
         in.close();
         config.put("hdfs.config", yamlConf);
