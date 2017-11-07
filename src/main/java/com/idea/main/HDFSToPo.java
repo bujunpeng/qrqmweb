@@ -1,5 +1,6 @@
 package com.idea.main;
 
+import com.idea.utils.MyMoveFileAction;
 import org.apache.storm.Config;
 import org.apache.storm.LocalCluster;
 import org.apache.storm.hdfs.bolt.HdfsBolt;
@@ -50,15 +51,16 @@ public class HDFSToPo {
 
         // rotate files when they reach 5MB
         FileRotationPolicy rotationPolicy = new TimedRotationPolicy(1.0f, TimedRotationPolicy.TimeUnit.MINUTES);
-        FileRotationPolicy rotationPolicy1 = new FileSizeRotationPolicy(5.0f, FileSizeRotationPolicy.Units.MB);
+        FileRotationPolicy rotationPolicy1 = new FileSizeRotationPolicy(128.0f, FileSizeRotationPolicy.Units.MB);
 
         FileNameFormat fileNameFormat = new DefaultFileNameFormat()
                 .withPath("/user/dianqu/private/test/stormhdfs1/")
+                .withPrefix("stormhdfs-")
                 .withExtension(".txt");
 
         // use "|" instead of "," for field delimiter
         RecordFormat format = new DelimitedRecordFormat()
-                .withFieldDelimiter("|");
+                .withFieldDelimiter("\t");
 
         Yaml yaml = new Yaml();
         InputStream in = new FileInputStream(System.getProperty("qrqmweb_HOME")+"/conf/hdfs.yaml");
@@ -71,9 +73,9 @@ public class HDFSToPo {
                 .withFsUrl("hdfs://10.0.180.3:8020")//hdfs://10.0.180.2:8020
                 .withFileNameFormat(fileNameFormat)
                 .withRecordFormat(format)
-                .withRotationPolicy(rotationPolicy)
+                .withRotationPolicy(rotationPolicy1)
                 .withSyncPolicy(syncPolicy)
-                .addRotationAction(new MoveFileAction().toDestination("/user/dianqu/private/test/stormhdfs2/"));
+                .addRotationAction(new MyMoveFileAction().toDestination("/user/dianqu/private/test/stormhdfs2/"));
 
         TopologyBuilder builder = new TopologyBuilder();
 
